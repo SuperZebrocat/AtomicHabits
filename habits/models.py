@@ -16,7 +16,7 @@ class Habit(models.Model):
     is_public = models.BooleanField(default=False, verbose_name="Публичная привычка")
 
     def __str__(self):
-        return f'Я буду {self.action} в {self.time} в {self.place}.'
+        return f'Я буду {self.action} в {self.action_time} в {self.place}.'
 
     class Meta:
         verbose_name = "Привычка"
