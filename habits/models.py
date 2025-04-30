@@ -12,8 +12,8 @@ class Habit(models.Model):
     associated_habit = models.ManyToManyField("self", blank=True, null=True, verbose_name="Связанная привычка")
     periodicity = models.PositiveIntegerField(default=1, blank=True, null=True, verbose_name="Периодичность выполнения")
     reward = models.CharField(max_length=255, null=True, blank=True, verbose_name="Вознаграждение")
-    lead_time = models.PositiveIntegerField(verbose_name="Продолжительность выполнения")
-    is_public = models.BooleanField(default=False, verbose_name="Публичная привычка")
+    lead_time = models.PositiveIntegerField(blank=True, null=True, verbose_name="Продолжительность выполнения")
+    is_public = models.BooleanField(default=False, blank=True, null=True, verbose_name="Публичная привычка")
 
     def __str__(self):
         return f'Я буду {self.action} в {self.action_time} в {self.place}.'
