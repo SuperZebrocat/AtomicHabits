@@ -17,4 +17,3 @@ class UserCreateAPIView(generics.CreateAPIView):
         # хэшируем пароль пользователя
         user.set_password(user.password)
         user.save()
-
