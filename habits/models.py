@@ -6,7 +6,7 @@ from users.models import User
 class Habit(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Владелец")
     place = models.CharField(max_length=255, blank=True, null=True, verbose_name="Место выполнения")
-    action_time = models.CharField(max_length=255, blank=True, null=True, verbose_name="Время выполнения")
+    action_time = models.TimeField(blank=True, null=True, verbose_name="Время выполнения")
     action = models.CharField(max_length=255, verbose_name="Действие")
     is_pleasant = models.BooleanField(default=False, verbose_name="Приятная привычка")
     associated_habit = models.ForeignKey(
@@ -18,9 +18,10 @@ class Habit(models.Model):
     reward = models.CharField(max_length=255, null=True, blank=True, verbose_name="Вознаграждение")
     lead_time = models.PositiveIntegerField(blank=True, null=True, verbose_name="Продолжительность выполнения")
     is_public = models.BooleanField(default=False, blank=True, null=True, verbose_name="Публичная привычка")
+    last_notice_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата последнего уведомления")
 
     def __str__(self):
-        return f"Я буду {self.action} в {self.action_time} в {self.place}."
+        return f"Привет! Сегодня в {self.action_time} закрепляем привычку {self.action} {self.place}."
 
     class Meta:
         verbose_name = "Привычка"
