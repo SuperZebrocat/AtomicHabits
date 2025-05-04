@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_filters",
     "drf_yasg",
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -136,3 +138,13 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=1),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",  # Замените на адрес вашего фронтенд-сервера
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",  # Замените на адрес вашего фронтенд-сервера
+]
+
+CORS_ALLOW_ALL_ORIGINS = False
