@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from habits.models import Habit
-from habits.validators import validate_periodicity, validate_lead_time
+from habits.validators import validate_lead_time, validate_periodicity
 
 
 class HabitSerializer(serializers.ModelSerializer):

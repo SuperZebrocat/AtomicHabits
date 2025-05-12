@@ -1,8 +1,8 @@
 import eventlet
-eventlet.monkey_patch()  # noqa: E402
-
 import os
 import sys
+
+eventlet.monkey_patch()  # noqa: E402
 
 
 def main():
