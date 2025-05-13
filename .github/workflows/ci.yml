@@ -72,20 +72,15 @@ jobs:
 
     steps:
       - name: Set up SSH
-        uses: appleboy/scp-action
+        uses: webfactory/ssh-agent@0.8.1
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
-#      - name: Add SSH key
-#        run: |
-#          mkdir -p ~/.ssh
-#          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-#          chmod 600 ~/.ssh/id_rsa
 
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} <<EOF
-          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
-          docker stop atomichabits || true
-          docker rm atomichabits || true
-          docker run -d --name atomichabits -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
+            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
+            docker stop atomichabits || true
+            docker rm atomichabits || true
+            docker run -d --name atomichabits -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
           EOF
