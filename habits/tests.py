@@ -50,7 +50,7 @@ class HabitTestCase(APITestCase):
             "previous": None,
             "results": [
                 {
-                    "id": 4,
+                    "id": 1,
                     "place": None,
                     "action_time": None,
                     "action": "пить воду",
@@ -80,7 +80,7 @@ class HabitTestCase(APITestCase):
             "previous": None,
             "results": [
                 {
-                    "id": 7,
+                    "id": 1,
                     "place": None,
                     "action_time": None,
                     "action": "пить воду",
