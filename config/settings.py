@@ -13,7 +13,7 @@ SECRET_KEY = "django-insecure-1(r2(+qgbfyqunszoa_wq=nzp3vl2j!86yr!5ls4#^gzjzy8r8
 
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
