@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем исходный код приложения в контейнер
 COPY . .
 
-RUN mkdir - /app/staticfiles && chmod -R 755 /app/staticfiles
+RUN mkdir -p /app/staticfiles && chmod -R 755 /app/staticfiles
 
 EXPOSE 8000
 
