@@ -16,6 +16,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${USER}:${PASSWORD}@db:5432/${NAME}
 
   db:
     image: postgres:16
@@ -40,7 +42,7 @@ services:
   redis:
     image: redis
     container_name: redis
-    command: bash -c "redis-server --save 20 1 -- loglevel warning"
+    command: bash -c "redis-server --save 20 1 --loglevel warning"
     volumes:
       - .data.cache:/data
     ports:
