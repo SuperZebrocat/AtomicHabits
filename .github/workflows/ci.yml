@@ -90,5 +90,6 @@ jobs:
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
               docker stop atomichabits || true
               docker rm atomichabits || true
-              docker run -d --name atomichabits -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
+              echo "${{ secrets.ENV_FILE_CONTENT }}" > .env              
+              docker run -d --name atomichabits --env-file .env -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
           EOF
