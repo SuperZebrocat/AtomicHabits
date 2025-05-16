@@ -55,11 +55,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Set up .env file
-        run: |
-            echo "NAME=${{ secrets.NAME }}" >> .env
-            echo "USER=${{ secrets.USER }}" >> .env
-            echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env  
+#      - name: Set up .env file
+#        run: |
+#            echo "NAME=${{ secrets.NAME }}" >> .env
+#            echo "USER=${{ secrets.USER }}" >> .env
+#            echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
 
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
