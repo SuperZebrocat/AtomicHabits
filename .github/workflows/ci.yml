@@ -85,7 +85,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          rsync -avz --delete ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
+          rsync -avz --delete "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
               docker stop atomichabits || true
