@@ -89,6 +89,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
               docker stop atomichabits || true
-              docker rm atomichabits || true                    
+              docker rm atomichabits || true                           
               docker run -d --name atomichabits --env-file .env -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
           EOF
