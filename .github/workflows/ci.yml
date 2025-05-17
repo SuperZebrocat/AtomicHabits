@@ -110,9 +110,9 @@ jobs:
           rsync -avz --delete --exclude='.git' -e "ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60" ./ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_DIR }}
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'   
               cd ${DEPLOY_DIR} || exit
-              docker-compose down || true
+              docker compose down || true
               docker stop atomichabits || true
               docker rm atomichabits || true                     
               docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
-              docker-compose up -d   
+              docker compose up -d   
           EOF
