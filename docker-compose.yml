@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
     env_file:
       - .env
     container_name: app
