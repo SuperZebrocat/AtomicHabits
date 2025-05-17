@@ -58,10 +58,22 @@ jobs:
 
       - name: Set up Docker
         run: |
+          # Удаляем старые версии Docker, если они есть
+          sudo apt-get remove -y docker docker-engine docker.io containerd runc
+
+          # Устанавливаем необходимые пакеты
           sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+
+          # Добавляем GPG ключ Docker
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+          # Добавляем репозиторий Docker
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+          # Устанавливаем Docker
+          sudo apt-get update
+          sudo apt-get install -y docker-ce
 
       - name: Install Docker Compose
         run: |
