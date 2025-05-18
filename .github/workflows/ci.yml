@@ -47,51 +47,6 @@ jobs:
       - name: Run tests
         run: python manage.py test
 
-  build:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker
-        run: |
-          # Удаляем старые версии Docker, если они есть
-          sudo apt-get remove -y docker docker-engine docker.io containerd runc
-
-          # Устанавливаем необходимые пакеты
-          sudo apt-get update
-          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-
-          # Добавляем GPG ключ Docker
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-          # Добавляем репозиторий Docker
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-          # Устанавливаем Docker
-          sudo apt-get update
-          sudo apt-get install -y docker-ce
-
-      - name: Install Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose  
-
-      - name: Log in to Docker Hub
-        run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-
-      - name: Build Docker image
-        run: |
-          export DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }}
-          export GITHUB_SHA=${{ github.sha }}
-          docker-compose build
-
-      - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -111,7 +66,6 @@ jobs:
               cd ${{ secrets.DEPLOY_DIR }} || exit
               docker compose down || true
               docker stop atomichabits || true
-              docker rm atomichabits || true                     
-              docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/atomichabits:${{ github.sha }}
+              docker rm atomichabits || true 
               docker compose up -d   
           EOF
