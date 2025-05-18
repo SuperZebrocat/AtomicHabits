@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: "${DOCKER_HUB_USERNAME}/atomichabits:${GITHUB_SHA}"
     env_file:
       - .env
     container_name: app
@@ -17,8 +16,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    environment:
-      DATABASE_URL: postgres://${USER}:${PASSWORD}@db:5432/${NAME}
 
   db:
     image: postgres:16
